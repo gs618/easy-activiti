@@ -1,0 +1,41 @@
+server:
+  port: 8083
+
+spring:
+  activiti:
+    check-process-definitions: false
+    database-schema-update: true
+  application:
+    name: activiti-modeler
+  datasource:
+    url: jdbc:mysql://10.237.161.213:3306/gs_acti?useUnicode=true&characterEncoding=utf-8&useSSL=false&nullCatalogMeansCurrent=true
+    username: user_dev
+    password: Zaq_2wsx
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate.ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+easy:
+  autoboxing:
+    ignore:
+      patterns:
+        - /swagger-resources/**
+        - /swagger-ui.html
+        - /v2/api-docs
+        - /webjars/**
+        - /csrf
+        - /
+      heasers:
+        - USING_FEIGN
+  swagger:
+    security:
+      enabled: true
+      schemes:
+        Authorization:
+          key-name: Authorization
+        tenantId:
+          key-name: tenantId
+        USER_ID:
+          key-name: USER_ID

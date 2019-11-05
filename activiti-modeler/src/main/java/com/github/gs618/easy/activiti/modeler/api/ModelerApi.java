@@ -126,7 +126,7 @@ public class ModelerApi {
         Deployment deployment = repositoryService.createDeployment()
                 .name(model.getName())
                 .tenantId(model.getTenantId())
-                .addString(model.getName() + "_" + model.getVersion()
+                .addString(model.getName() + ".bpmn20.xml"
                         , new String(bpmnBytes, StandardCharsets.UTF_8))
                 .deploy();
         model.setDeploymentId(deployment.getId());

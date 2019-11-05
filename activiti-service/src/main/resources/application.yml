@@ -18,6 +18,8 @@ spring:
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 easy:
+  upload-file:
+    base-path: C:\workspace\easy-activiti\activiti-service\target\classes
   autoboxing:
     ignore:
       patterns:

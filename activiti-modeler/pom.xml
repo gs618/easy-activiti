@@ -48,7 +48,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-      <!--  <dependency>
+        <dependency>
+            <groupId>com.github.gs618</groupId>
+            <artifactId>easy-starter-swagger</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+     <!--   <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-explorer</artifactId>
             <exclusions>

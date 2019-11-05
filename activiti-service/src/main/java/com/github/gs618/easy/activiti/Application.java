@@ -1,19 +1,26 @@
 package com.github.gs618.easy.activiti;
 
+import com.github.gs618.easy.starter.autoboxing.EnableAutoboxing;
+import com.github.gs618.easy.starter.datasource.EnableDataSource;
+import com.github.gs618.easy.starter.swagger.EnableSwagger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 /**
  * @author s.c.gao
  */
 @SpringBootApplication
+@EnableSwagger
+@EnableAutoboxing
+@EnableDataSource
 @Slf4j
 public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-        log.info("================start===============");
+        ApplicationContext applicationContext = SpringApplication.run(Application.class, args);
+        log.info(" ========== " + applicationContext.getId() + " started ==========");
     }
 
 }

@@ -52,10 +52,12 @@ public class ModelerApi {
         modelNode.put(ModelDataJsonConstants.MODEL_NAME, modelDTO.getName());
         modelNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, modelDTO.getDescription());
         modelNode.put(ModelDataJsonConstants.MODEL_REVISION, REVISION);
+        modelNode.put("key", modelDTO.getKey());
         model.setMetaInfo(modelNode.toString());
 
         model.setName(modelDTO.getName());
         model.setKey(modelDTO.getKey());
+
         model.setTenantId(modelDTO.getTenantId());
 
         repositoryService.saveModel(model);
@@ -69,6 +71,10 @@ public class ModelerApi {
         stencilSetNode.put("namespace",
                 "http://b3mn.org/stencilset/bpmn2.0#");
         editorNode.set("stencilset", stencilSetNode);
+        ObjectNode properties = objectMapper.createObjectNode();
+        properties.put("process_id", modelDTO.getKey());
+        properties.put("name", modelDTO.getName());
+        editorNode.set("properties", properties);
         repositoryService.addModelEditorSource(id, editorNode.toString().getBytes(StandardCharsets.UTF_8));
         return model;
     }
@@ -80,7 +86,10 @@ public class ModelerApi {
      */
     @GetMapping
     public List<Model> modelList() {
-        return repositoryService.createModelQuery().orderByCreateTime().desc().list();
+        return repositoryService.createModelQuery()
+                .orderByModelName()
+                .orderByLastUpdateTime().desc()
+                .list();
     }
 
     /**

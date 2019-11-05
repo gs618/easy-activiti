@@ -7,4 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ProcessInstanceApi {
+
+    public void create(){}
+
 }

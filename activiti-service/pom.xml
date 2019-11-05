@@ -49,5 +49,20 @@
             <groupId>com.github.gs618</groupId>
             <artifactId>activiti-dto</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.gs618</groupId>
+            <artifactId>easy-model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gs618</groupId>
+            <artifactId>easy-starter-swagger</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gs618</groupId>
+            <artifactId>easy-starter-autoboxing</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

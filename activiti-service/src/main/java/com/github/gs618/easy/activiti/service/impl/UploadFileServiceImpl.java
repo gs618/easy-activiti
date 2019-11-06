@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -46,13 +47,13 @@ public class UploadFileServiceImpl implements UploadFileService {
         // extention check
         boolean allowedEx = false;
         for (String allowExtensionName : uploadFileProperties.getAllowExtensionNames()) {
-            if(originalFilename.endsWith(allowExtensionName)){
+            if (originalFilename.endsWith(allowExtensionName)) {
                 allowedEx = true;
                 break;
             }
         }
-        if(!allowedEx){
-            log.info("Extension Name of file [" + originalFilename+ "] is not allowed");
+        if (!allowedEx) {
+            log.info("Extension Name of file [" + originalFilename + "] is not allowed");
             return null;
         }
 
@@ -80,8 +81,8 @@ public class UploadFileServiceImpl implements UploadFileService {
         Path path = Paths.get(uploadFileProperties.getBasePath()
                 + File.separator
                 + relativePath.toString());
-        try {
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        try (InputStream inputStream = file.getInputStream()) {
+            Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new FileReadException();
         }

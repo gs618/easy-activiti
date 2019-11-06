@@ -117,10 +117,10 @@ public class ModelerApi {
         return new BpmnXMLConverter().convertToXML(bpmnModel);
     }
 
-    private void deploy(Model model) throws Exception {
+    private String deploy(Model model) throws Exception {
         byte[] bpmnBytes = modelToBpmnModel(repositoryService.getModelEditorSource(model.getId()));
         if (Objects.isNull(bpmnBytes)) {
-            return;
+            return "";
         }
         //发布流程
         Deployment deployment = repositoryService.createDeployment()
@@ -131,6 +131,7 @@ public class ModelerApi {
                 .deploy();
         model.setDeploymentId(deployment.getId());
         repositoryService.saveModel(model);
+        return deployment.getId();
     }
 
     /**
@@ -141,13 +142,13 @@ public class ModelerApi {
      * @throws Exception
      */
     @PostMapping("/deploy/{id}")
-    public void deploySpecialId(@PathVariable("id") String id) throws Exception {
+    public String deploySpecialId(@PathVariable("id") String id) throws Exception {
         Model model = getModelById(id);
         if (Objects.isNull(model)) {
             log.error("no model with id " + id);
-            return;
+            return "";
         }
-        deploy(model);
+        return deploy(model);
     }
 
     private Model getModelById(String id) {

@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 public class ProcessDefinitionConverter {
 
+    public static final int FIRST_TASK_TAG = 1;
+
     public static ProcessDefinitionDTO toDTO(ProcessDefinition processDefinition) {
         ProcessDefinitionDTO processDefinitionDTO = new ProcessDefinitionDTO();
         BeanUtils.copyProperties(processDefinition, processDefinitionDTO);
@@ -36,10 +38,16 @@ public class ProcessDefinitionConverter {
         TaskDefinitionDTO taskDefinitionDTO = new TaskDefinitionDTO();
         if (!Objects.isNull(taskDefinition.getPriorityExpression())
                 && StringUtils.isNumber(taskDefinition.getPriorityExpression().getExpressionText())) {
-            taskDefinitionDTO.setPriority(Integer.parseInt(taskDefinition.getPriorityExpression().getExpressionText()));
+            int priority = Integer.parseInt(taskDefinition.getPriorityExpression().getExpressionText());
+            taskDefinitionDTO.setFirstTask(FIRST_TASK_TAG == priority);
+        } else {
+            taskDefinitionDTO.setFirstTask(false);
         }
         if (!Objects.isNull(taskDefinition.getAssigneeExpression())) {
-            taskDefinitionDTO.setAssignee(taskDefinition.getAssigneeExpression().getExpressionText());
+            String assignee = taskDefinition.getAssigneeExpression().getExpressionText();
+            taskDefinitionDTO.setAutoTask(TaskAssignee.RPA.name().equals(assignee));
+        } else {
+            taskDefinitionDTO.setAutoTask(false);
         }
         taskDefinitionDTO.setKey(taskDefinition.getKey());
         if (!Objects.isNull(taskDefinition.getNameExpression())) {

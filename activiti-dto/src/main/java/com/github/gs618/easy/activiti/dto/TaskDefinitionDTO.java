@@ -12,7 +12,7 @@ public class TaskDefinitionDTO {
 
     String name;
 
-    Integer priority;
+    Boolean autoTask;
 
-    String assignee;
+    Boolean firstTask;
 }
